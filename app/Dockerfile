@@ -22,14 +22,6 @@ RUN npm install \
 
 RUN echo "Everything is ready!!"
 
-FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
-
-WORKDIR /code
-
-COPY requirements.txt /code
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install -r requirements.txt 
-
 EXPOSE 3000
 
 # Start the app using serve command
