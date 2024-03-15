@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: nodejsapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejsapp
+  template:
+    metadata:
+      labels:
+        app: nodejsapp 
+    spec:
+      containers:
+        - name: nodejsapp 
+          image: adoakscr.azurecr.io/nodejsapp
+          ports:
+          - containerPort: 3000

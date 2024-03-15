@@ -1,0 +1,1 @@
+[![Build Status](https://dev.azure.com/fernandoco/AKS-Policies-PoC/_apis/build/status%2Ffecohidemos.ADO-AKS-Policies?branchName=main)](https://dev.azure.com/fernandoco/AKS-Policies-PoC/_build/latest?definitionId=5&branchName=main)
