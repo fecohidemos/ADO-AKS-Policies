@@ -27,15 +27,13 @@
     "policyRule": {
       "if": {
         "field": "type",
-        "in": [
-          "Microsoft.ContainerService/managedClusters"
-        ]
+        "equals": "Microsoft.ContainerRegistry/registries"
       },
       "then": {
         "effect": "[parameters('effect')]",
         "details": {
           "type": "Microsoft.Security/assessments",
-          "name": "c609cf0f-71ab-41e9-a3c6-9a1f7fe1b8d5",
+          "name": "c0b7cfc6-3172-465a-b378-53c7ff2cc0d5",
           "existenceCondition": {
             "field": "Microsoft.Security/assessments/status.code",
             "in": [
@@ -45,8 +43,13 @@
           }
         }
       }
-    }
+    },
+    "versions": [
+      "1.0.1",
+      "1.0.0"
+    ]
   },
-  "id": "/providers/Microsoft.Authorization/policyDefinitions/17f4b1cc-c55c-4d94-b1f9-2978f6ac2957",
-  "name": "17f4b1cc-c55c-4d94-b1f9-2978f6ac2957"
+  "id": "/providers/Microsoft.Authorization/policyDefinitions/090c7b07-b4ed-4561-ad20-e9075f3ccaff",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "090c7b07-b4ed-4561-ad20-e9075f3ccaff"
 }
