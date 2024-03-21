@@ -17,10 +17,14 @@
           "description": "Enable or disable the execution of the policy"
         },
         "allowedValues": [
-          "AuditIfNotExists",
+          "audit",
+          "Audit",
+          "deny",
+          "Deny",
+          "disabled",
           "Disabled"
         ],
-        "defaultValue": "AuditIfNotExists"
+        "defaultValue": "Deny"
       }
     },
     "policyRule": {
