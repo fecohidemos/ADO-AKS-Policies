@@ -19,9 +19,9 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '30dd7e92-a4ad-446e-a91c-9515c64125cb'
-  imageRepository: 'phpapp'
+  imageRepository: 'nodejsapp'
   containerRegistry: 'adoakscr.azurecr.io'
-  dockerfilePath: 'php/Dockerfile'
+  dockerfilePath: 'node/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'adoakscr1902589d-auth'
   waitForScanResultsAfterPushInMinutes: '5'
