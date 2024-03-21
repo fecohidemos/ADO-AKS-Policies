@@ -101,5 +101,5 @@ stages:
         scriptType: 'pscore'
         scriptLocation: 'scriptPath'
         # Security Gate powershell script in same folder
-        scriptPath: '$(Build.SourcesDirectory)/ImageScanSummaryAssessmentGate.ps1'
+        scriptPath: '$(Build.SourcesDirectory)/.ado/ImageScanSummaryAssessmentGate.ps1'
         arguments: '-registryName $(containerRegistry) -repository $(imageRepository) -tag $(tag)'
