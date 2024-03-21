@@ -17,7 +17,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '30dd7e92-a4ad-446e-a91c-9515c64125cb'
-  imageRepository: 'nodejsapp'
+  imageRepository: 'wordpress'
   containerRegistry: 'adoakscr.azurecr.io'
   dockerfilePath: 'wordpress/Dockerfile'
   tag: '$(Build.BuildId)'
