@@ -97,15 +97,16 @@ Write-Host "Image Digest: $imageDigest"
 
 # All images scan summary ARG query.
 $query = "securityresources
- | where type == 'microsoft.security/assessments/subassessments'
- | where id matches regex  '(.+?)/providers/Microsoft.ContainerRegistry/registries/(.+)/providers/Microsoft.Security/assessments/dbd0cb49-b563-45e7-9724-889e799fa648/'
+ | where type =~ 'microsoft.security/assessments/subassessments'
+ | extend assessmentKey=extract(@'(?i)providers/Microsoft.Security/assessments/([^/]*)', 1, id)
+ | where assessmentKey == 'c0b7cfc6-3172-465a-b378-53c7ff2cc0d5'
  | extend registryResourceId = tostring(split(id, '/providers/Microsoft.Security/assessments/')[0])
- | extend registryResourceName = tostring(split(registryResourceId, '/providers/Microsoft.ContainerRegistry/registries/')[1])
- | extend imageDigest = tostring(properties.additionalData.imageDigest)
- | extend repository = tostring(properties.additionalData.repositoryName)
- | extend patchable = tobool(properties.additionalData.patchable)
+ | extend registryResourceName = tostring(properties.additionalData.artifactDetails.registryHost)
+ | extend imageDigest = tostring(properties.additionalData.artifactDetails.digest)
+ | extend repository = tostring(properties.additionalData.artifactDetails.repositoryName)
+ | extend patchable = tobool('False')
  | extend scanFindingSeverity = tostring(properties.status.severity), scanStatus = tostring(properties.status.code)
- | summarize findingsCountOverAll = count(), scanFindingSeverityCount = countif(patchable or not(tobool($ignoreNonPatchable))) by scanFindingSeverity, scanStatus, registryResourceId, registryResourceName, repository, imageDigest
+ | summarize findingsCountOverAll = count(), scanFindingSeverityCount = countif(patchable or not(tobool(False))) by scanFindingSeverity, scanStatus, registryResourceId, registryResourceName, repository, imageDigest
  | summarize findingsCountOverAll = sum(findingsCountOverAll), severitySummary = make_bag(pack(scanFindingSeverity, scanFindingSeverityCount)) by registryResourceId, registryResourceName, repository, imageDigest, scanStatus
  | summarize findingsCountOverAll = sum(findingsCountOverAll) , scanReport = make_bag_if(pack('scanStatus', scanStatus, 'scanSummary', severitySummary), scanStatus != 'NotApplicable')by registryResourceId, registryResourceName, repository, imageDigest
  | extend IsScanned = iif(findingsCountOverAll > 0, true, false)"
