@@ -24,6 +24,7 @@ variables:
   imagePullSecret: 'adoakscr1902589d-auth'
   waitForScanResultsAfterPushInMinutes: '5'
   azureSubName: 'ado-aks-policy-poc'
+  kubernetesServiceConnection: 'staging-cluster'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -102,10 +103,7 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment-nginx.yml
                 $(Pipeline.Workspace)/manifests/service-nginx.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
