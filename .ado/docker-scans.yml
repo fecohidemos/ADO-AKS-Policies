@@ -22,9 +22,7 @@ pool:
   vmImage: ubuntu-latest
 
 jobs:
-  - template: "/.ado/templates-docker/trivy.yml"
-    parameters:
-      
+  - template: "/.ado/templates-docker/trivy.yml"    
   - template: "/.ado/templates-docker/snyk.yml"
     parameters:
       SNYK_TOKEN: $(SNYK_TOKEN)
