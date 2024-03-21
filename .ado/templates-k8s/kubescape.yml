@@ -1,0 +1,29 @@
+parameters:
+  - name: working_directory
+    default: manifests
+  - name: kubescape_version
+    default: 2.9.1
+
+jobs:
+  - job: kubescape
+    steps:
+      - task: CmdLine@2
+        displayName: "Download kubescape .tar.gz and extract"
+        inputs:
+          script: |           
+            wget https://github.com/kubescape/kubescape/releases/download/v${{ parameters.kubescape_version }}/kubescape-ubuntu-latest.tar.gz
+            tar -xvf kubescape-ubuntu-latest.tar.gz
+            sudo cp kubescape /usr/local/bin/kubescape
+            kubescape version
+      - task: CmdLine@2
+        displayName: "kubescape Static Code Analysis"
+        continueOnError: true
+        inputs:          
+          script: |
+            kubescape scan ${{ parameters.working_directory }} --format sarif
+            cat report.sarif
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: "report.sarif"
+          ArtifactName: "CodeAnalysisLogs"
+          publishLocation: "Container"

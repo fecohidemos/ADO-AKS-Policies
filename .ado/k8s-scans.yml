@@ -1,0 +1,34 @@
+name: K8s scans
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - policies/**
+      - README.md
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - policies/**
+      - README.md
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+  - template: "/.ado/templates-k8s/trivy.yml"
+  - template: "/.ado/templates-k8s/snyk.yml"
+    parameters:
+      SNYK_TOKEN: $(SNYK_TOKEN)
+  - template: "/.ado/templates-k8s/checkov.yml"
+  - template: "/.ado/templates-k8s/kube-score.yml"
+  - template: "/.ado/templates-k8s/kubeaudit.yml"
+  - template: "/.ado/templates-k8s/kubescape.yml"
+
+  

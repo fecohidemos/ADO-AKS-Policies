@@ -1,0 +1,27 @@
+parameters:
+  - name: working_directory
+    default: manifests
+  - name: kube_score_version
+    default: 1.17.0
+
+jobs:
+  - job: kube_score   
+    steps:
+      - task: CmdLine@2
+        displayName: "Download kube-score .tar.gz and extract"
+        inputs:
+          script: |            
+            wget https://github.com/zegl/kube-score/releases/download/v${{ parameters.kube_score_version }}/kube-score_${{ parameters.kube_score_version }}_linux_amd64.tar.gz
+            tar -xvf kube-score_${{ parameters.kube_score_version }}_linux_amd64.tar.gz
+            sudo cp kube-score /usr/local/bin/kube-score
+            kube-score version
+      - script: |
+          kube-score score ${{ parameters.working_directory }}/*.yaml || true
+          kube-score score ${{ parameters.working_directory }}/*.yaml --output-format sarif > kube-score.sarif
+        displayName: Scan manifests using kube-score
+        continueOnError: true
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: "kube-score.sarif"
+          ArtifactName: "CodeAnalysisLogs"
+          publishLocation: "Container"
