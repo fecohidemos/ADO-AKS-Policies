@@ -59,5 +59,5 @@ stages:
               action: deploy
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment-nginx.yml
-                $(Pipeline.Workspace)/manifests/service-nginx.yml
+                $(Pipeline.Workspace)/s/manifests/deployment-nginx.yml
+                $(Pipeline.Workspace)/s/manifests/service-nginx.yml
