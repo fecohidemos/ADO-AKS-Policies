@@ -1,13 +1,14 @@
 name: K8s scans
 
-# trigger:
-#   branches:
-#     include:
-#       - main
-#   paths:
-#     exclude:
-#       - policies/**
-#       - README.md
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - policies/**
+      - .ado/**
+      - README.md
 
 pool:
   vmImage: ubuntu-latest
