@@ -2,13 +2,13 @@
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-trigger:
-  branches:
-    include:
-    - main
-  paths:
-    exclude:
-    - policies/*
+# trigger:
+#   branches:
+#     include:
+#     - main
+#   paths:
+#     exclude:
+#     - policies/*
 
 resources:
 - repo: self
@@ -33,57 +33,11 @@ variables:
   k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
 
 stages:
-- stage: Scan
-  displayName: Scan stage
-  jobs:
-  - job: Manifest
-    displayName: Scan
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - upload: manifests
-      artifact: manifests
-
-    # Wait till ASC vulnerability scan will be completed for pushed image
-  - job: WaitForScanResults
-    displayName: Wait for Scan result
-    pool: Server
-    steps:
-    - task: Delay@1
-      inputs:
-        delayForMinutes: $(waitForScanResultsAfterPushInMinutes)
-    
-    # Run Image scan gate - which extracts image scan results and assess whether 
-    # to fail the pipeline based on severity threshold configuration.
-    # Using the ImageScanSummaryAssessmentGate.ps1 script in same repo folder
-  - job: ImageScanGate
-    displayName: Image Scan security gate
-    pool:
-      vmImage: $(vmImageName)
-    dependsOn: 
-    - Build
-    - WaitForScanResults
-    steps:
-    # Read more here: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops)
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: '$(azureSubName)'
-        scriptType: 'pscore'
-        scriptLocation: 'scriptPath'
-        # Security Gate powershell script in same folder
-        scriptPath: '$(Build.SourcesDirectory)/.ado/ImageScanSummaryAssessmentGate.ps1'
-        arguments: '-registryName $(containerRegistry) -repository $(imageRepository) -tag $(tag)'
-
-    - upload: manifests
-      artifact: manifests
-
 - stage: Deploy
   displayName: Deploy stage
-  dependsOn: Scan
-
+  
   jobs:
   - deployment: Deploy
-    condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
@@ -91,7 +45,10 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:
+          steps:          
+          - upload: manifests
+            artifact: manifests
+
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:

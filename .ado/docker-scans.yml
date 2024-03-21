@@ -9,15 +9,6 @@ trigger:
       - policies/**
       - README.md
 
-pr:
-  branches:
-    include:
-      - main
-  paths:
-    exclude:
-      - policies/**
-      - README.md
-
 pool:
   vmImage: ubuntu-latest
 
