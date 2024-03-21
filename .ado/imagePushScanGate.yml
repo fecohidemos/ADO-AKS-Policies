@@ -57,7 +57,7 @@ stages:
       displayName: Microsoft Security DevOps
       inputs:
         break: true
-        policy: microsoft
+        tools: trivy
         publish: true
         # command: 'run' | 'pre-job' | 'post-job'. Optional. The command to run. Default: run
         # config: string. Optional. A file path to an MSDO configuration file ('*.gdnconfig').
