@@ -76,7 +76,7 @@ stages:
     displayName: Wait for Scan result
     pool: Server
     dependsOn: 
-    - BuildAndPush
+    - Build
     condition: succeeded()
     steps:
     - task: Delay@1
@@ -91,7 +91,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     dependsOn: 
-    - BuildAndPush
+    - Build
     - WaitForScanResults
     steps:
     # Read more here: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops)
