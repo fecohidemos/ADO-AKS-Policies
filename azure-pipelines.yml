@@ -64,15 +64,7 @@ stages:
         # break: boolean. Optional. If true, will fail this build step if any error level results are found. Default: false.
         # publish: boolean. Optional. If true, will publish the output SARIF results file to the chosen pipeline artifact. Default: true.
         # artifactName: string. Optional. The name of the pipeline artifact to publish the SARIF result file to. Default: CodeAnalysisLogs*.
-    
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: "$(Build.ArtifactStagingDirectory)/trivy-results.sarif"
-        ArtifactName: "CodeAnalysisLogs"
-        publishLocation: "Container"
 
-    - upload: manifests
-      artifact: manifests
 
 - stage: Deploy
   displayName: Deploy stage
