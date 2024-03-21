@@ -48,10 +48,13 @@ stages:
         tags: |
           $(tag)
 
-#    - task: MicrosoftSecurityDevOps@1
-#      displayName: Microsoft Security DevOps
-#      inputs:
-#        break: true
+    - task: MicrosoftSecurityDevOps@1
+      displayName: Microsoft Security DevOps
+      inputs:
+        break: true
+        tools: trivy
+        policy: microsoft
+        publish: true
         # command: 'run' | 'pre-job' | 'post-job'. Optional. The command to run. Default: run
         # config: string. Optional. A file path to an MSDO configuration file ('*.gdnconfig').
         # policy: 'azuredevops' | 'microsoft' | 'none'. Optional. The name of a well-known Microsoft policy. If no configuration file or list of tools is provided, the policy may instruct MSDO which tools to run. Default: azuredevops.
@@ -61,6 +64,12 @@ stages:
         # break: boolean. Optional. If true, will fail this build step if any error level results are found. Default: false.
         # publish: boolean. Optional. If true, will publish the output SARIF results file to the chosen pipeline artifact. Default: true.
         # artifactName: string. Optional. The name of the pipeline artifact to publish the SARIF result file to. Default: CodeAnalysisLogs*.
+    
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: "$(Build.ArtifactStagingDirectory)/trivy-results.sarif"
+        ArtifactName: "CodeAnalysisLogs"
+        publishLocation: "Container"
 
     - upload: manifests
       artifact: manifests

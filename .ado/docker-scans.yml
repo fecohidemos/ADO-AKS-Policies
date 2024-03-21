@@ -1,0 +1,25 @@
+name: Docker scans
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - policies/**
+      - README.md
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - policies/**
+      - README.md
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+  - template: "/.ado/templates/trivy.yml"  
