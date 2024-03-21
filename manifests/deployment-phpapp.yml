@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: wordpress 
+  name: phpapp 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wordpress
+      app: phpapp
   template:
     metadata:
       labels:
-        app: wordpress 
+        app: phpapp 
     spec:
       containers:
-        - name: wordpress 
-          image: adoakscr.azurecr.io/wordpress
+        - name: phpapp 
+          image: adoakscr.azurecr.io/phpapp
           ports:
           - containerPort: 80

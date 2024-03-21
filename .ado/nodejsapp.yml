@@ -17,9 +17,9 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '30dd7e92-a4ad-446e-a91c-9515c64125cb'
-  imageRepository: 'wordpress'
+  imageRepository: 'nodejsapp'
   containerRegistry: 'adoakscr.azurecr.io'
-  dockerfilePath: 'wordpress/Dockerfile'
+  dockerfilePath: 'node/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'adoakscr1902589d-auth'
 
@@ -95,8 +95,8 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment-wordpress.yml
-                $(Pipeline.Workspace)/manifests/service-wordpress.yml
+                $(Pipeline.Workspace)/manifests/deployment-nodejsapp.yml
+                $(Pipeline.Workspace)/manifests/service-nodejsapp.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
@@ -136,8 +136,8 @@ stages:
               action: deploy
               namespace: $(k8sNamespaceForPR)
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment-wordpress.yml
-                $(Pipeline.Workspace)/manifests/service-wordpress.yml
+                $(Pipeline.Workspace)/manifests/deployment-nodejsapp.yml
+                $(Pipeline.Workspace)/manifests/service-nodejsapp.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
