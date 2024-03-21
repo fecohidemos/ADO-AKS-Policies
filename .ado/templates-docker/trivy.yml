@@ -2,9 +2,9 @@ parameters:
   - name: trivyVersion
     default: 0.45.0
   - name: IMAGE_NAME
-    default: apache
+    default: nodejsapp
   - name: DOCKERFILE_PATH
-    default: .
+    default: node
 
 jobs:
   - job: Trivy

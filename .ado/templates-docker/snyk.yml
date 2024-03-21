@@ -2,9 +2,9 @@ parameters:
   - name: SNYK_TOKEN # name of the parameter; required
     type: string # data type of the parameter; required
   - name: IMAGE_NAME
-    default: apache
+    default: nodejsapp
   - name: DOCKERFILE_PATH
-    default: .
+    default: node
 
 jobs:
   - job: Snyk

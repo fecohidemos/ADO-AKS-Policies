@@ -1,8 +1,8 @@
 parameters:
   - name: IMAGE_NAME
-    default: apache
+    default: nodejsapp
   - name: DOCKERFILE_PATH
-    default: .
+    default: node
 
 jobs:
   - job: Grype

@@ -19,7 +19,7 @@ variables:
   dockerRegistryServiceConnection: '30dd7e92-a4ad-446e-a91c-9515c64125cb'
   imageRepository: 'phpapp'
   containerRegistry: 'adoakscr.azurecr.io'
-  dockerfilePath: 'phpapp/Dockerfile'
+  dockerfilePath: 'php/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'adoakscr1902589d-auth'
 
@@ -53,7 +53,6 @@ stages:
       inputs:
         break: true
         tools: trivy
-        policy: microsoft
         publish: true
         # command: 'run' | 'pre-job' | 'post-job'. Optional. The command to run. Default: run
         # config: string. Optional. A file path to an MSDO configuration file ('*.gdnconfig').

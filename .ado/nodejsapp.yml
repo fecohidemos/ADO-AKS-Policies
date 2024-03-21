@@ -53,7 +53,6 @@ stages:
       inputs:
         break: true
         tools: trivy
-        policy: microsoft
         publish: true
         # command: 'run' | 'pre-job' | 'post-job'. Optional. The command to run. Default: run
         # config: string. Optional. A file path to an MSDO configuration file ('*.gdnconfig').
