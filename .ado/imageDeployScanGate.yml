@@ -45,16 +45,11 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:          
+          steps:
+          - checkout: self
+               
           - upload: manifests
             artifact: manifests
-
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
