@@ -2,7 +2,7 @@
   "properties": {
     "displayName": "CUSTOM POC-Azure running container images should have vulnerabilities resolved (powered by Microsoft Defender Vulnerability Management)",
     "policyType": "Custom",
-    "mode": "Indexed",
+    "mode": "All",
     "description": "Container image vulnerability assessment scans your registry for commonly known vulnerabilities (CVEs) and provides a detailed vulnerability report for each image. This recommendation provides visibility to vulnerable images currently running in your Kubernetes clusters. Remediating vulnerabilities in container images that are currently running is key to improving your security posture, significantly reducing the attack surface for your containerized workloads.",
     "metadata": {
       "version": "1.0.1",

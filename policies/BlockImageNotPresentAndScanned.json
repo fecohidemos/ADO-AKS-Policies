@@ -2,7 +2,7 @@
   "properties": {
     "displayName": "CUSTOM POC-Azure registry container images should have vulnerabilities resolved (powered by Microsoft Defender Vulnerability Management)",
     "policyType": "Custom",
-    "mode": "Indexed",
+    "mode": "All",
     "description": "Container image vulnerability assessment scans your registry for commonly known vulnerabilities (CVEs) and provides a detailed vulnerability report for each image. Resolving vulnerabilities can greatly improve your security posture, ensuring images are safe to use prior to deployment.",
     "metadata": {
       "version": "1.0.1",
