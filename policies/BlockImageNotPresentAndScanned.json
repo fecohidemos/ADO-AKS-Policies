@@ -15,7 +15,7 @@
         "equals": "Microsoft.ContainerRegistry/registries"
       },
       "then": {
-        "effect": "deny",
+        "effect": "deployIfNotExists",
         "details": {
           "type": "Microsoft.Security/assessments",
           "name": "c0b7cfc6-3172-465a-b378-53c7ff2cc0d5",
