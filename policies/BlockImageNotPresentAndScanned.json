@@ -9,31 +9,13 @@
       "category": "Security Center"
     },
     "version": "1.0.1",
-    "parameters": {
-      "effect": {
-        "type": "String",
-        "metadata": {
-          "displayName": "Effect",
-          "description": "Enable or disable the execution of the policy"
-        },
-        "allowedValues": [
-          "audit",
-          "Audit",
-          "deny",
-          "Deny",
-          "disabled",
-          "Disabled"
-        ],
-        "defaultValue": "Deny"
-      }
-    },
     "policyRule": {
       "if": {
         "field": "type",
         "equals": "Microsoft.ContainerRegistry/registries"
       },
       "then": {
-        "effect": "[parameters('effect')]",
+        "effect": "deny",
         "details": {
           "type": "Microsoft.Security/assessments",
           "name": "c0b7cfc6-3172-465a-b378-53c7ff2cc0d5",
